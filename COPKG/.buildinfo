@@ -21,31 +21,42 @@ default
     build-command: @"
       sh configure
       make
+
+      call git add aclocal.m4
+      call git add configure
+      call git add doc\m4.info*
+      call git add doc\stamp-vti
+      call git add doc\version.texi
+      call git commit -m ""HACK: Files altered during build.""
     ";
  
     clean-command: @"
+      
       make clean
+     
+      del /Q checks\Makefile 2>NUL
       
-      del checks\Makefile
+      del /Q doc\Makefile 2>NUL
       
-      del doc\Makefile
+      del /Q examples\Makefile 2>NUL
       
-      del examples\Makefile
+      rmdir /Q /S lib\.deps 2>NUL
+      del lib\Makefile 2>NUL
+      del lib\config.h 2>NUL
+      del lib\stamp-h1 2>NUL
       
-      rmdir /Q /S lib\.deps
-      del lib\Makefile
-      del lib\config.h
-      del lib\stamp-h1
+      rmdir /Q /S src\.deps 2>NUL
+      del src\Makefile 2>NUL
       
-      rmdir /Q /S src\.deps
-      del src\Makefile
+      rmdir /Q /S tests\.deps 2>NUL
+      del tests\Makefile 2>NUL
       
-      rmdir /Q /S tests\.deps
-      del tests\Makefile
+      del stamp-h 2>NUL
+      del config.log 2>NUL
+      del config.status 2>NUL
+      del Makefile 2>NUL
       
-      del stamp-h
-      del config.log
-      del config.status
-      del Makefile
+      rmdir /Q /S autom4te.cache 2>NUL
+      
     ";
 }
