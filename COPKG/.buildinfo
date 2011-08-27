@@ -1,0 +1,51 @@
+#product-info
+{
+    product-name: "m4";
+    version: "1.4.16";
+    original-source-location: "http://ftp.gnu.org/gnu/m4/m4-1.4.16.tar.gz";
+    original-source-website: "http://www.gnu.org/software/m4/m4.html";
+    license: "GPL";
+    packager: "Rafael Rivera <rafael@withinwindows.com>";
+}
+
+default
+{
+    compiler: mingw;
+    platform: x86;
+ 
+    targets:
+    {
+      "src/m4.exe"
+    };
+ 
+    build-command: @"
+      sh configure
+      make
+    ";
+ 
+    clean-command: @"
+      make clean
+      
+      del checks\Makefile
+      
+      del doc\Makefile
+      
+      del examples\Makefile
+      
+      rmdir /Q /S lib\.deps
+      del lib\Makefile
+      del lib\config.h
+      del lib\stamp-h1
+      
+      rmdir /Q /S src\.deps
+      del src\Makefile
+      
+      rmdir /Q /S tests\.deps
+      del tests\Makefile
+      
+      del stamp-h
+      del config.log
+      del config.status
+      del Makefile
+    ";
+}
